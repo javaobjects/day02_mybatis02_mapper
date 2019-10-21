@@ -1,0 +1,29 @@
+1. EmpMapper.java 与 EmpMapper.xml文件保持文件名称大小写一致
+
+2. EmpMapper.xml中的namespace指向EmpMapper.java接口所在路径
+	<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.neuedu.dao.EmpMapper">
+	
+	
+	</mapper>
+	
+3.EmpMapper.xml中的SQL语句与EmpMapper.java中的方法保持以下规则：
+	<select id="selectEmpByEmpno" parameterType="int" resultType="emp">
+	
+	public Emp selectEmpByEmpno(int empno);
+	
+	①  EmpMapper.xml中的id属性值与EmpMapper.java中的方法名称保持大小写一致
+	②  EmpMapper.xml中的参数类型与EmpMapper.java中的参数类型保持一致
+	②  EmpMapper.xml中的返回值类型与EmpMapper.java中的返回值类型保持一致
+	
+	
+4.测试
+	//1.获取SqlSessionFactory接口
+	SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("sqlMapConfig.xml"));
+		
+	//2.获取SqlSession接口
+	SqlSession session = factory.openSession();
+		
+	//3.基于接口获取代理对象
+	EmpMapper empDao = session.getMapper(EmpMapper.class);

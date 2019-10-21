@@ -2,7 +2,6 @@ package com.tencent.test;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -29,9 +28,9 @@ public class Test {
 		//System.out.println(emp);
 		
 		//组合查询 : 返回List<Emp>
-		Emp emp = new Emp();
+//		Emp emp = new Emp();
 		//emp.setEmpno(7788);
-		emp.setEname("S");
+//		emp.setEname("S");
 //		emp.setJob("C");
 //		List<Emp> empList = empDao.selectEmps(emp);		
 //		for (Emp emp2 : empList) {
@@ -39,11 +38,17 @@ public class Test {
 //		}
 		
 		//组合查询: 返回List<Map<String,Object>>
-		List<Map<String,Object>> jobList = empDao.selectEmpsMap(emp);
-		for (Map<String, Object> jobInfo : jobList) {
-			System.out.println(jobInfo);
-		}
+//		List<Map<String,Object>> jobList = empDao.selectEmpsMap(emp);
+//		for (Map<String, Object> jobInfo : jobList) {
+//			System.out.println(jobInfo);
+//		}
 		
+		//单参数：Integer[] empnos
+		Integer[] empnos = new Integer[] {1111,7788,7839,2};
+		List<Emp> empList = empDao.selectEmpsByArray(empnos);
+		for (Emp emp : empList) {
+			System.out.println(emp);
+		}
 		
 		
 		//新增

@@ -44,7 +44,14 @@
 		group by job
 	</select>
 	
-	
+	<!-- 单参数:Integer[] empnos -->
+	<select id="selectEmpsByArray" resultType="com.tencent.pojo.Emp">
+		select * from emp where empno in
+		
+		<foreach collection="array" item="empno" open="(" separator="," close=")">
+			#{empno}
+		</foreach>
+	</select>
 	
 	 <!-- 
 		<insert>:定义新增SQL语句（executeUpdate）

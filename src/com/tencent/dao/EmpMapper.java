@@ -22,6 +22,8 @@ public interface EmpMapper {
 	//<select id="selectEmpsMap" parameterType="com.tencent.pojo.Emp" resultType="java.util.Map">
 	public List<Map<String,Object>> selectEmpsMap(Emp emp);
 	
+	//单参数Integer[] empnos:<select id="selectEmpsMap" parameterType="com.tencent.pojo.Emp" resultType="java.util.Map">
+	public List<Emp> selectEmpsByArray(Integer[] empnos);
 	
 	/**
 	 * 新增

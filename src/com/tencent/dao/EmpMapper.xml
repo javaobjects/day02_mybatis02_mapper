@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.dao.EmpMapper">
+<mapper namespace="com.tencent.dao.EmpMapper">
 	<!-- 
 		<select>:定义查询SQL语句
 			id：SQL语句的唯一标识符
@@ -12,11 +12,45 @@
 		select * from emp where empno = #{empno}
 	</select>  
 	
+	<select id="selectEmps" parameterType="com.tencent.pojo.Emp" resultType="com.tencent.pojo.Emp">
+		select * from emp where 1=1
+		
+		<if test="empno > 0">
+			and empno=#{empno}
+		</if>
+		
+		<if test="ename = !null and ename != ''">
+			and ename like '%%{ename}%'
+		</if>
+		
+		<if test="job !=null and job !=''">
+			and job like '%${job}%'
+		</if>
+	</select>
+	<!-- 组合查询：返回List<Map<String,Object>>:在List集合中保存一个个的Map对象{MNSAL=800，AVGSAL=950,ECOUNT=3,JOB=CLERK }  -->
+	<select id="selectEmpsMap" parameterType="com.tencent.pojo.Emp" resultType="java.util.Map">
+		select job,count(empno) ecount,avg(sal) avgSal,min(sal) minSal from emp where 1=1
+		
+		<if test="empno > 0">
+			and empno = #{empno}
+		</if>
+		<if test="ename !=null and ename != ''">
+			and ename like '%${ename}%'
+		</if>
+		
+		<if test="job !=null and job != ''">
+			and job like '%${job}%'
+		</if>
+		group by job
+	</select>
+	
+	
+	
 	 <!-- 
 		<insert>:定义新增SQL语句（executeUpdate）
 			默认返回值为影响行数int，不需要定义返回值类型
 	 -->
-	 <insert id="insertEmp" parameterType="com.neuedu.pojo.Emp">
+	 <insert id="insertEmp" parameterType="com.tencent.pojo.Emp">
 	 	insert into emp(empno,ename,job) values(seq_emp.nextval,#{ename},#{job})
 	 	
 	 	<!-- 
@@ -32,7 +66,7 @@
 		<update>:定义修改SQL语句
 			默认返回值为影响行数int，不需要定义返回值类型
 	 -->
-	 <update id="updateEmp" parameterType="com.neuedu.pojo.Emp">
+	 <update id="updateEmp" parameterType="com.tencent.pojo.Emp">
 	 		update emp set ename = #{ename} where empno=#{empno}
 	 </update>
 	 
@@ -43,5 +77,6 @@
 	 <delete id="deleteEmp" parameterType="int">
 	 		delete from emp where empno = #{empno}
 	 </delete>
+	
 	
 </mapper>

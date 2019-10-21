@@ -37,6 +37,14 @@
 	</environments>
 	<!-- 映射文件:定义SQL语句与实体类关系的xml文件 -->
 	<mappers>
-		<mapper resource="com/tencent/dao/EmpMapper.xml" />
+		<!-- 单个读取配置文件 -->
+		<!-- <mapper resource="com/tencent/dao/EmpMapper.xml" />
+		<mapper resource="com/tencent/dao/DeptMapper.xml" /> -->
+		
+		<!-- 单个读取配置文件:(基于mapper代理方式) -->
+		<!-- <mapper class="com.tencent.dao.DeptMapper"/> -->
+	
+		<!-- 批量读取配置文件:(基于mapper代理方式) -->
+		<package name="com.tencent.dao"/>
 	</mappers>
 </configuration>
